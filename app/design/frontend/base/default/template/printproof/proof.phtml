@@ -1,0 +1,11 @@
+<?php
+    $proofs = Mage::helper('orderproof')->getProofsForOrder();
+    if ($proofs->count()):
+?>
+    <h2 class="margin-top-large"><?php echo $this->__('Order Proofs') ?></h2>
+    <?php foreach ($proofs as $proof): ?>
+        <?php echo Mage::helper('orderproof')->getProofHtml($proof) ?>
+    <?php endforeach; ?>
+<?php
+    endif;
+?>

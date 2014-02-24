@@ -1,0 +1,90 @@
+<?php
+    $proofs = Mage::helper('printproof')->getProofsForOrder();
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Order Proofs') ?></h4>
+    </div>
+    <div class="fieldset">
+    <?php if ($proofs->count()): ?>
+        <?php foreach ($proofs as $proof): ?>
+            <?php echo Mage::helper('printproof')->getProofHtml($proof) ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p><?php echo $this->__('This order has no proofs.') ?></p>
+    <?php endif; ?>
+    </div>
+</div>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Create New Proof') ?></h4>
+    </div>
+    <div class="fieldset">
+        <form action="<?php echo $this->getUrl('printproofadmin/adminhtml_proof/createProof') ?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="order_id" value="<?php echo $this->getOrderId() ?>" />
+            <input type="hidden" name="form_key" value="<?php echo $this->getFormKey() ?>" />
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <tr>
+                        <td class="label">
+                            <label><?php echo $this->__('Comment') ?></label>
+                        </td>
+                        <td class="value">
+                            <textarea name="comment"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label><?php echo $this->__('Attachment') ?></label>
+                        </td>
+                        <td class="value">
+                            <input type="file" name="attachment" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">&nbsp;</td>
+                        <td class="value">
+                            <button type="submit" class="button"><?php echo $this->__('Create New Proof') ?></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<style type="text/css">
+    .proof{
+        background: #fff;
+        margin-bottom: 1em;
+    }
+    .proof:after,
+    .proof .comment:after{
+        display: block;
+        content: " ";
+        clear: both;
+    }
+    .proof .comment{
+        padding: 1.5em;
+        border-bottom: 1px solid #DDD;
+        border-left: 1px solid #DDD;
+        border-right: 1px solid #DDD;
+    }
+    .proof .comment .name,    
+    .proof .comment .attachment{
+        float: left;
+        width: 20%;
+        margin-right: 5%;
+    }
+    .proof .comment .text{
+        float: left;
+        width: 45%;
+        margin-right: 5%;
+    }
+    .proof .comment .attachment img{
+        max-width: 100%;
+        max-height: 100px;
+    }
+    .proof .messages li{
+        margin-bottom: 0 !important;
+    }
+</style>
