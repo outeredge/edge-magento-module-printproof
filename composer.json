@@ -20,7 +20,7 @@
     ],
     "extra": {
         "map": [
-            ["app", "app"]
+            ["app/code/local/Edge/PrintProof", "app/code/local/Edge/PrintProof"]
         ]
     }
 }
