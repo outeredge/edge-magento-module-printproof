@@ -20,7 +20,13 @@
     ],
     "extra": {
         "map": [
-            ["app/code/local/Edge/PrintProof", "app/code/local/Edge/PrintProof"]
+            ["app/code/local/Edge/PrintProof", "app/code/local/Edge/PrintProof"],
+            ["app/design/adminhtml/default/default/layout/printproof.xml", "app/design/adminhtml/default/default/layout/printproof.xml"],
+            ["app/design/adminhtml/default/default/template/printproof", "app/design/adminhtml/default/default/template/printproof"],
+            ["app/design/frontend/base/default/layout/printproof.xml", "app/design/frontend/base/default/layout/printproof.xml"],
+            ["app/design/frontend/base/default/template/printproof", "app/design/frontend/base/default/template/printproof"],
+            ["app/etc/modules/Edge_PrintProof.xml", "app/etc/modules/Edge_PrintProof.xml"],
+            ["app/locale/en_US/template/email/printproof_email_notification.html", "app/locale/en_US/template/email/printproof_email_notification.html"]
         ]
     }
 }
