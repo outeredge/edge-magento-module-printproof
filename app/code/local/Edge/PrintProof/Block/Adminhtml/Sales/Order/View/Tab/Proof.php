@@ -30,12 +30,12 @@ class Edge_PrintProof_Block_Adminhtml_Sales_Order_View_Tab_Proof
 
     public function getTabLabel()
     {
-        return Mage::helper('printproof')->__('Proof');
+        return Mage::helper('printproof')->__('Printing Proofs');
     }
 
     public function getTabTitle()
     {
-        return Mage::helper('printproof')->__('Order Proofs');
+        return Mage::helper('printproof')->__('Printing Proofs');
     }
     
     public function getTabClass()

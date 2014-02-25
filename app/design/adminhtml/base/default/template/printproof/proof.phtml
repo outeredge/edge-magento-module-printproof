@@ -3,12 +3,41 @@
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4><?php echo $this->__('Order Proofs') ?></h4>
+        <h4><?php echo $this->__('Printing Proofs') ?></h4>
     </div>
     <div class="fieldset">
     <?php if ($proofs->count()): ?>
         <?php foreach ($proofs as $proof): ?>
-            <?php echo Mage::helper('printproof')->getProofHtml($proof) ?>
+            <div class="printproof">
+                <div class="printproof-status">
+                    Status: <strong><?php echo $proof->getStatus() ?></strong>
+                </div>
+                <?php foreach ($proof->getCommentList() as $comment): ?>
+                    <div class="printproof-comment">
+                        <p>
+                            <strong><?php echo $comment->getName() ?></strong><br/>
+                            <em><?php echo $comment->getDate() ?></em>
+                        </p>
+                        <p><?php echo $comment->getComment() ?></p>
+                        <a href="<?php echo $comment->getAttachmentUrl() ?>">
+                            <?php echo $comment->getAttachment() ?>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+                <form id="printproof_reply_<?php echo $proof->getId() ?>" action="<?php echo $proof->getReplyUrl(true) ?>" method="POST" enctype="multipart/form-data" class="printproof-reply-form">
+                    <input type="hidden" name="proof_id" value="<?php echo $proof->getId() ?>"/>
+                    <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
+                    <ul class="form-list">
+                        <li class="wide">
+                            <textarea name="comment" id="comment_<?php echo $proof->getId() ?>" class="textarea required-entry" style="width: 100%"></textarea>
+                        </li>
+                        <li class="wide">
+                            <input type="file" name="attachment_<?php echo $proof->getId() ?>" />                    
+                        </li>
+                    </ul>
+                    <button type="submit" class="button"><?php echo Mage::helper('printproof')->__('Reply') ?></button>
+                </form>
+            </div>
         <?php endforeach; ?>
     <?php else: ?>
         <p><?php echo $this->__('This order has no proofs.') ?></p>
@@ -52,39 +81,3 @@
         </form>
     </div>
 </div>
-<style type="text/css">
-    .proof{
-        background: #fff;
-        margin-bottom: 1em;
-    }
-    .proof:after,
-    .proof .comment:after{
-        display: block;
-        content: " ";
-        clear: both;
-    }
-    .proof .comment{
-        padding: 1.5em;
-        border-bottom: 1px solid #DDD;
-        border-left: 1px solid #DDD;
-        border-right: 1px solid #DDD;
-    }
-    .proof .comment .name,    
-    .proof .comment .attachment{
-        float: left;
-        width: 20%;
-        margin-right: 5%;
-    }
-    .proof .comment .text{
-        float: left;
-        width: 45%;
-        margin-right: 5%;
-    }
-    .proof .comment .attachment img{
-        max-width: 100%;
-        max-height: 100px;
-    }
-    .proof .messages li{
-        margin-bottom: 0 !important;
-    }
-</style>

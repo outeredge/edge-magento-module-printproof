@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout>
     <adminhtml_sales_order_view>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/printproof.css</name>
+            </action>
+        </reference>
         <reference name="sales_order_tabs">
             <action method="addTab">
                 <name>printproof</name>
