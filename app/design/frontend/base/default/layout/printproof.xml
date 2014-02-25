@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout>
     <sales_order_view>
-        <reference name="sales.order.view">
-            <block type="core/template" name="proof" template="printproof/proof.phtml"/>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/printproof.css</name>
+            </action>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="proof" after="sales.order.view" template="printproof/proof.phtml"/>
         </reference>
     </sales_order_view>
 </layout>

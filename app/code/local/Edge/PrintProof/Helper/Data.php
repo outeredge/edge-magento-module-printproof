@@ -91,9 +91,9 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         $html = '<div class="proof">';
         
         if ($proof->getApproved()){
-            $html.= '<ul class="messages"><li class="success-msg">Approved</li></ul>';
+            $html.= '<ul class="messages"><li class="success-msg">Accepted</li></ul>';
         } else {
-            $html.= '<ul class="messages"><li class="error-msg">Not Approved</li></ul>';
+            $html.= '<ul class="messages"><li class="error-msg">Not Accepted</li></ul>';
         }
         
         if (Mage::app()->getStore()->isAdmin()){
