@@ -83,6 +83,12 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         $proof->setComments(serialize($updatedComments));
         $proof->save();
         
+        if (Mage::app()->getStore()->isAdmin()){
+            Mage::dispatchEvent('printproof_update_adminhtml', array('proof' => $proof));
+        } else {
+            Mage::dispatchEvent('printproof_update_customer', array('proof' => $proof));
+        }
+        
         return true;
     }
     

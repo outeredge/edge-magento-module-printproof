@@ -42,13 +42,76 @@
         </resources>
         <template>
             <email>
-                <printproof_email_notification module="printproof">
-                    <label>Order Proof Email Notification</label>
-                    <file>printproof_email_notification.html</file>
+                <printproof_create_email_notification module="printproof">
+                    <label>Print Proof Email Notification</label>
+                    <file>printproof_create_email_notification.html</file>
                     <type>html</type>
-                </printproof_email_notification>
+                </printproof_create_email_notification>
+                <printproof_update_email_notification module="printproof">
+                    <label>Print Proof Email Notification</label>
+                    <file>printproof_update_email_notification.html</file>
+                    <type>html</type>
+                </printproof_update_email_notification>
+                <printproof_approve_email_notification module="printproof">
+                    <label>Print Proof Email Notification</label>
+                    <file>printproof_approve_email_notification.html</file>
+                    <type>html</type>
+                </printproof_approve_email_notification>
+                <printproof_update_email_notification_admin module="printproof">
+                    <label>Print Proof Email Notification Admin</label>
+                    <file>printproof_update_email_notification_admin.html</file>
+                    <type>html</type>
+                </printproof_update_email_notification_admin>
+                <printproof_approve_email_notification_admin module="printproof">
+                    <label>Print Proof Email Notification Admin</label>
+                    <file>printproof_approve_email_notification_admin.html</file>
+                    <type>html</type>
+                </printproof_approve_email_notification_admin>
             </email>
         </template>
+        <events>
+            <printproof_create_adminhtml>
+                <observers>
+                    <printproof_create_notify_customer>
+                        <type>singleton</type>
+                        <class>Edge_PrintProof_Model_Observer</class>
+                        <method>notifyCustomer</method>
+                    </printproof_create_notify_customer>
+                </observers>
+            </printproof_create_adminhtml>
+            <printproof_update_adminhtml>
+                <observers>
+                    <printproof_update_notify_customer>
+                        <type>singleton</type>
+                        <class>Edge_PrintProof_Model_Observer</class>
+                        <method>updateCustomer</method>
+                    </printproof_update_notify_customer>
+                </observers>
+            </printproof_update_adminhtml>
+            <printproof_update_customer>
+                <observers>
+                    <printproof_update_notify_admin>
+                        <type>singleton</type>
+                        <class>Edge_PrintProof_Model_Observer</class>
+                        <method>updateAdmin</method>
+                    </printproof_update_notify_admin>
+                </observers>
+            </printproof_update_customer>
+            <printproof_approved_customer>
+                <observers>
+                    <printproof_approved_notify_admin>
+                        <type>singleton</type>
+                        <class>Edge_PrintProof_Model_Observer</class>
+                        <method>approveAdmin</method>
+                    </printproof_approved_notify_admin>
+                    <printproof_approved_notify_customer>
+                        <type>singleton</type>
+                        <class>Edge_PrintProof_Model_Observer</class>
+                        <method>approveCustomer</method>
+                    </printproof_approved_notify_customer>
+                </observers>
+            </printproof_approved_customer>
+        </events>
     </global>
     <frontend>
         <routers>

@@ -35,8 +35,7 @@ class Edge_PrintProof_Adminhtml_ProofController extends Mage_Adminhtml_Controlle
         $proof->setComments(serialize(array($comment)));
         $proof->save();
         
-        Mage::helper('printproof')->sendNotificationToCustomer();
-        
+        Mage::dispatchEvent('printproof_create_adminhtml', array('proof' => $proof));
         $this->_redirect('adminhtml/sales_order/view', array('order_id'  => $params['order_id']));
         return;
     }
@@ -45,7 +44,6 @@ class Edge_PrintProof_Adminhtml_ProofController extends Mage_Adminhtml_Controlle
     {
         $params = $this->getRequest()->getParams();
         if (Mage::helper('printproof')->addToExisting($params)){
-            Mage::helper('printproof')->sendNotificationToCustomer();
             $this->_redirect('adminhtml/sales_order/view', array('order_id'  => $params['order_id']));
             return;
         }

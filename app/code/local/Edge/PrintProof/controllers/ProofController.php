@@ -33,6 +33,8 @@ class Edge_PrintProof_ProofController extends Mage_Core_Controller_Front_Action
         $proof->setApproved($approve);
         $proof->save();
         
+        Mage::dispatchEvent('printproof_approved_customer', array('proof' => $proof));
+        
         $this->_redirect('sales/order/view', array(
             'order_id' => $this->getRequest()->getParam('order_id', false)
         ));

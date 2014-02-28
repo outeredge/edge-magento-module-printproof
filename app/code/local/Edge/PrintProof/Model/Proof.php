@@ -15,7 +15,9 @@ class Edge_PrintProof_Model_Proof extends Mage_Core_Model_Abstract
         foreach ($comments as $comment){
             
             $comment['date'] = date('jS M Y H:i:s', $comment['date']);
-            $comment['attachment_url'] = Mage::getBaseUrl('media') . 'printproof' . $comment['attachment'];
+            if (isset($comment['attachment'])){
+                $comment['attachment_url'] = Mage::getBaseUrl('media') . 'printproof' . $comment['attachment'];
+            }
             
             $object = new Varien_Object();
             $object->setData($comment);
