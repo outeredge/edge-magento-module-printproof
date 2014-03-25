@@ -15,9 +15,11 @@
                         <em><?php echo $comment->getDate() ?></em>
                     </p>
                     <p><?php echo $comment->getComment() ?></p>
-                    <a href="<?php echo $comment->getAttachmentUrl() ?>">
-                        <img src="<?php echo $comment->getAttachmentUrl() ?>" alt="Attachment">
-                    </a>
+                    <?php if ($comment->getAttachmentUrl()): ?>
+                        <a href="<?php echo $comment->getAttachmentUrl() ?>">
+                            <img src="<?php echo $comment->getAttachmentUrl() ?>" alt="Attachment">
+                        </a>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
             <form id="printproof_reply_<?php echo $proof->getId() ?>" action="<?php echo $proof->getReplyUrl() ?>" method="POST" enctype="multipart/form-data" class="printproof-reply-form" style="display: none;">
