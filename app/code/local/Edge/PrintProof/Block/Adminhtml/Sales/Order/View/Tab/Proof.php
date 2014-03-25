@@ -50,7 +50,7 @@ class Edge_PrintProof_Block_Adminhtml_Sales_Order_View_Tab_Proof
 
     public function getTabUrl()
     {
-        return $this->getUrl('printproofadmin/adminhtml_proof/list', array('_current' => true));
+        return $this->getUrl('printproofadmin/admin/list', array('_current' => true));
     }
 
     public function canShowTab()

@@ -28,7 +28,7 @@ class Edge_PrintProof_Model_Proof extends Mage_Core_Model_Abstract
     
     public function getReplyUrl($admin=false)
     {
-        $url = $admin ? 'printproofadmin/adminhtml_proof/addToExisting' : 'printproof/proof/addToExisting';
+        $url = $admin ? 'printproofadmin/admin/addToExisting' : 'printproof/proof/addToExisting';
         return Mage::getUrl($url, array(
             'order_id' => Mage::app()->getRequest()->getParam('order_id', false),
             'proof_id' => $this->getId()

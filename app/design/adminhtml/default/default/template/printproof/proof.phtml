@@ -49,7 +49,7 @@
         <h4><?php echo $this->__('Create New Proof') ?></h4>
     </div>
     <div class="fieldset">
-        <form action="<?php echo $this->getUrl('printproofadmin/adminhtml_proof/createProof') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo $this->getUrl('printproofadmin/admin/createProof') ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="order_id" value="<?php echo $this->getOrderId() ?>" />
             <input type="hidden" name="form_key" value="<?php echo $this->getFormKey() ?>" />
             <table cellspacing="0" class="form-list">

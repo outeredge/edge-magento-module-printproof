@@ -103,7 +103,7 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         }
         
         if (Mage::app()->getStore()->isAdmin()){
-            $action = Mage::getUrl('printproofadmin/adminhtml_proof/addToExisting', array(
+            $action = Mage::getUrl('printproofadmin/admin/addToExisting', array(
                 'order_id' => Mage::app()->getRequest()->getParam('order_id', false)
             ));
         } else {

@@ -1,6 +1,6 @@
 <?php
 
-class Edge_PrintProof_Adminhtml_ProofController extends Mage_Adminhtml_Controller_Action
+class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
 {
     protected $_publicActions = array('list', 'createProof', 'addToExisting');
     
