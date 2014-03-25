@@ -16,7 +16,7 @@
                     </p>
                     <p><?php echo $comment->getComment() ?></p>
                     <a href="<?php echo $comment->getAttachmentUrl() ?>">
-                        <?php echo $comment->getAttachment() ?>
+                        <img src="<?php echo $comment->getAttachmentUrl() ?>" alt="Attachment">
                     </a>
                 </div>
             <?php endforeach; ?>
