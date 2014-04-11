@@ -8,6 +8,29 @@
             <div class="printproof-status">
                 <?php echo Mage::helper('printproof')->__('Status') ?>: <strong><?php echo $proof->getStatus() ?></strong>
             </div>
+            <?php if (!$proof->getApproved() && !$proof->getRejected()): ?>
+                <form id="printproof_reply_<?php echo $proof->getId() ?>" action="<?php echo $proof->getReplyUrl() ?>" method="POST" enctype="multipart/form-data" class="printproof-reply-form">
+                    <input type="hidden" name="proof_id" value="<?php echo $proof->getId() ?>"/>
+                    <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
+                    <ul class="form-list">
+                        <li class="wide">
+                            <textarea name="comment" id="comment_<?php echo $proof->getId() ?>" class="textarea required-entry" style="width: 100%"></textarea>
+                        </li>
+                        <li class="wide">
+                            <input type="file" name="attachment_<?php echo $proof->getId() ?>" />                    
+                        </li>
+                    </ul>
+                    <button type="submit" class="button"><?php echo Mage::helper('printproof')->__('Reply') ?></button>
+                </form>
+                <div class="printproof-buttons">
+                    <a class="button button-reject" href="<?php echo $proof->getRejectUrl() ?>">
+                        <?php echo Mage::helper('printproof')->__('Reject') ?>
+                    </a>
+                    <a class="button button-approve" href="<?php echo $proof->getApprovalUrl() ?>">
+                        <?php echo Mage::helper('printproof')->__('Approve') ?>
+                    </a>
+                </div>
+            <?php endif; ?>
             <?php foreach ($proof->getCommentList() as $comment): ?>
                 <div class="printproof-comment">
                     <p>
@@ -22,29 +45,6 @@
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
-            <form id="printproof_reply_<?php echo $proof->getId() ?>" action="<?php echo $proof->getReplyUrl() ?>" method="POST" enctype="multipart/form-data" class="printproof-reply-form">
-                <input type="hidden" name="proof_id" value="<?php echo $proof->getId() ?>"/>
-                <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
-                <ul class="form-list">
-                    <li class="wide">
-                        <textarea name="comment" id="comment_<?php echo $proof->getId() ?>" class="textarea required-entry" style="width: 100%"></textarea>
-                    </li>
-                    <li class="wide">
-                        <input type="file" name="attachment_<?php echo $proof->getId() ?>" />                    
-                    </li>
-                </ul>
-                <button type="submit" class="button"><?php echo Mage::helper('printproof')->__('Reply') ?></button>
-            </form>
-            <div class="printproof-buttons">
-                <?php if (!$proof->getApproved() && !$proof->getRejected()): ?>
-                    <a class="button button-reject" href="<?php echo $proof->getRejectUrl() ?>">
-                        <?php echo Mage::helper('printproof')->__('Reject') ?>
-                    </a>
-                    <a class="button button-approve" href="<?php echo $proof->getApprovalUrl() ?>">
-                        <?php echo Mage::helper('printproof')->__('Approve') ?>
-                    </a>
-                <?php endif; ?>
-            </div>
             <script>
                 new VarienForm('printproof_reply_<?php echo $proof->getId() ?>');
             </script>

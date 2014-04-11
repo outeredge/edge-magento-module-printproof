@@ -55,6 +55,8 @@ class Edge_PrintProof_Model_Proof extends Mage_Core_Model_Abstract
     {
         if ($this->getApproved()){
             return 'Approved';
+        } elseif ($this->getRejected()) {
+            return 'Rejected';
         } else {
             return 'Awaiting Approval';
         }
