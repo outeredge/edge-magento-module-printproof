@@ -29,7 +29,7 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
 
             try {
                 $uploader = new Varien_File_Uploader($name);
-                $image = $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'))
+                $image = $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png','eps','pdf','ai','psd'))
                     ->setAllowRenameFiles(true)
                     ->setFilesDispersion(true)
                     ->save($path, $_FILES[$name]['name']);
