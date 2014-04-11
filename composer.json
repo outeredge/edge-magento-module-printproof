@@ -27,9 +27,11 @@
             ["app/design/frontend/base/default/template/printproof", "app/design/frontend/base/default/template/printproof"],
             ["app/etc/modules/Edge_PrintProof.xml", "app/etc/modules/Edge_PrintProof.xml"],
             ["app/locale/en_US/template/email/printproof_approve_email_notification.html", "app/locale/en_US/template/email/printproof_approve_email_notification.html"],
+            ["app/locale/en_US/template/email/printproof_reject_email_notification.html", "app/locale/en_US/template/email/printproof_reject_email_notification.html"],
             ["app/locale/en_US/template/email/printproof_create_email_notification.html", "app/locale/en_US/template/email/printproof_create_email_notification.html"],
             ["app/locale/en_US/template/email/printproof_update_email_notification.html", "app/locale/en_US/template/email/printproof_update_email_notification.html"],
             ["app/locale/en_US/template/email/printproof_approve_email_notification_admin.html", "app/locale/en_US/template/email/printproof_approve_email_notification_admin.html"],
+            ["app/locale/en_US/template/email/printproof_reject_email_notification_admin.html", "app/locale/en_US/template/email/printproof_reject_email_notification_admin.html"],
             ["app/locale/en_US/template/email/printproof_update_email_notification_admin.html", "app/locale/en_US/template/email/printproof_update_email_notification_admin.html"],
             ["skin/adminhtml/default/default/css/printproof.css", "skin/adminhtml/default/default/css/printproof.css"],
             ["skin/frontend/base/default/css/printproof.css", "skin/frontend/base/default/css/printproof.css"]
