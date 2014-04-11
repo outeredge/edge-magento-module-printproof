@@ -9,6 +9,7 @@ $this->run("
         `order_id` int(10) unsigned NOT NULL,
         `comments` text NULL DEFAULT NULL,
         `approved` tinyint(1) NOT NULL DEFAULT '0',
+        `rejected` tinyint(1) NOT NULL DEFAULT '0',
         `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `approved_date` timestamp NULL DEFAULT NULL,
         PRIMARY KEY (`id`),

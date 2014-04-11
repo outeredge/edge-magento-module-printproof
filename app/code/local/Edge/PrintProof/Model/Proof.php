@@ -35,19 +35,20 @@ class Edge_PrintProof_Model_Proof extends Mage_Core_Model_Abstract
         ));
     }
     
+    public function getRejectUrl()
+    {
+        return Mage::getUrl('printproof/proof/reject', array(
+            'order_id' => Mage::registry('current_order')->getId(),
+            'proof_id' => $this->getId()
+        ));
+    }
+    
     public function getApprovalUrl()
     {
-        if ($this->getApproved()){
-            return Mage::getUrl('printproof/proof/unapprove', array(
-                'order_id' => Mage::registry('current_order')->getId(),
-                'proof_id' => $this->getId()
-            ));
-        } else {
-            return Mage::getUrl('printproof/proof/approve', array(
-                'order_id' => Mage::registry('current_order')->getId(),
-                'proof_id' => $this->getId()
-            ));
-        }
+        return Mage::getUrl('printproof/proof/approve', array(
+            'order_id' => Mage::registry('current_order')->getId(),
+            'proof_id' => $this->getId()
+        ));
     }
     
     public function getStatus()

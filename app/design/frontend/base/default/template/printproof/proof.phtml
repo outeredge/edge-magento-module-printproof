@@ -22,7 +22,7 @@
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
-            <form id="printproof_reply_<?php echo $proof->getId() ?>" action="<?php echo $proof->getReplyUrl() ?>" method="POST" enctype="multipart/form-data" class="printproof-reply-form" style="display: none;">
+            <form id="printproof_reply_<?php echo $proof->getId() ?>" action="<?php echo $proof->getReplyUrl() ?>" method="POST" enctype="multipart/form-data" class="printproof-reply-form">
                 <input type="hidden" name="proof_id" value="<?php echo $proof->getId() ?>"/>
                 <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
                 <ul class="form-list">
@@ -33,13 +33,17 @@
                         <input type="file" name="attachment_<?php echo $proof->getId() ?>" />                    
                     </li>
                 </ul>
-                <button type="submit" class="button"><?php echo Mage::helper('printproof')->__('Submit') ?></button>
+                <button type="submit" class="button"><?php echo Mage::helper('printproof')->__('Reply') ?></button>
             </form>
             <div class="printproof-buttons">
-                <?php if (!$proof->getApproved()): ?>
-                    <button type="button" class="button button-approve" data-url="<?php echo $proof->getApprovalUrl() ?>"><?php echo Mage::helper('printproof')->__('Approve') ?></button>
+                <?php if (!$proof->getApproved() && !$proof->getRejected()): ?>
+                    <a class="button button-reject" href="<?php echo $proof->getRejectUrl() ?>">
+                        <?php echo Mage::helper('printproof')->__('Reject') ?>
+                    </a>
+                    <a class="button button-approve" href="<?php echo $proof->getApprovalUrl() ?>">
+                        <?php echo Mage::helper('printproof')->__('Approve') ?>
+                    </a>
                 <?php endif; ?>
-                <button type="button" class="button button-reply-printproof"><?php echo Mage::helper('printproof')->__('Reply') ?></button>
             </div>
             <script>
                 new VarienForm('printproof_reply_<?php echo $proof->getId() ?>');
@@ -50,12 +54,16 @@
     endif;
 ?>
 <script type="text/javascript">
-    $$('.button-approve').invoke('observe', 'click', function(e){
-        if (window.confirm('Are you sure you want to accept this proof?')){
-            window.location = $(this).readAttribute('data-url');
+    $$('.button-reject').invoke('observe', 'click', function(e){
+        if (!window.confirm('Are you sure you want to reject this proof?')){
+            e.preventDefault();
+            return false;
         }
     });
-    $$('.button-reply-printproof').invoke('observe', 'click', function(){
-        $(this).up().hide().previous('form').show();
+    $$('.button-approve').invoke('observe', 'click', function(e){
+        if (!window.confirm('Are you sure you want to accept this proof?')){
+            e.preventDefault();
+            return false;
+        }
     });
 </script>

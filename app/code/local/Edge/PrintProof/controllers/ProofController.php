@@ -17,23 +17,29 @@ class Edge_PrintProof_ProofController extends Mage_Core_Controller_Front_Action
     
     public function approveAction()
     {
-        $this->approve(true);
+        $proof = Mage::getModel('printproof/proof');
+        $proof->load($this->getRequest()->getParam('proof_id', false));
+        
+        $proof->setApproved(true);
+        $proof->save();
+        
+        Mage::dispatchEvent('printproof_approved_customer', array('proof' => $proof));
+        
+        $this->_redirect('sales/order/view', array(
+            'order_id' => $this->getRequest()->getParam('order_id', false)
+        ));
+        return;
     }
     
-    public function unapproveAction()
-    {
-        $this->approve(false);
-    }
-    
-    protected function approve($approve)
+    public function rejectAction()
     {
         $proof = Mage::getModel('printproof/proof');
         $proof->load($this->getRequest()->getParam('proof_id', false));
         
-        $proof->setApproved($approve);
+        $proof->setRejected(true);
         $proof->save();
         
-        Mage::dispatchEvent('printproof_approved_customer', array('proof' => $proof));
+        Mage::dispatchEvent('printproof_rejected_customer', array('proof' => $proof));
         
         $this->_redirect('sales/order/view', array(
             'order_id' => $this->getRequest()->getParam('order_id', false)
