@@ -56,11 +56,17 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
             ->getCollection()
             ->setOrder('creation_date', 'DESC');
         
-        $collection->getSelect()->join(
-            array('order' => 'sales_flat_order'), 
-            'order.entity_id = main_table.order_id AND order.customer_id = ' . $customer->getId(), 
-            array('order.customer_id', 'order.increment_id')
-        );
+        $collection->getSelect()
+            ->join(
+                array('order' => 'sales_flat_order'), 
+                'order.entity_id = main_table.order_id AND order.customer_id = ' . $customer->getId(), 
+                array('order.customer_id', 'order.increment_id')
+            )
+            ->join(
+                array('order_item' => 'sales_flat_order_item'),
+                'order_item.item_id = main_table.item_id',
+                array('item_name' => 'order_item.name')
+            );
         
         return $collection;
     }
