@@ -7,7 +7,23 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         $comments = $proof->getCommentList();
         foreach ($comments as $comment){
             if (isset($comment['attachment_url']) && $comment['attachment_url']){
-                $html ='<img src="' . $comment['attachment_url'] . '" alt="Attachment">';
+                
+                $extension = explode('.', $comment['attachment_url']);
+                switch($extension[count($extension)-1]){
+                    case "jpeg":
+                    case "jpg":
+                    case "gif":
+                    case "png":
+                        $html = '<img src="' . $comment['attachment_url'] . '" alt="Attachment">';
+                        break;
+                    case "pdf":
+                    case "ai":
+                        $html = '<span class="printproof-document-icon">' . strtoupper($extension[count($extension)-1]) . '</span>';
+                        if($link){
+                            $html.= '<span class="printproof-document-name">' . $comment['attachment'] . '</span>';
+                        }
+                        break;
+                }
                 if($link){
                     $html = '<a href="' . $comment['attachment_url'] . '">' . $html . '</a>';
                 }

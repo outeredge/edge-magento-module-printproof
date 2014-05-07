@@ -39,46 +39,50 @@
 .printproof-comment em{
     font-size: .9em;
 }
-
 .printproof-create-fieldset .form-list td.value textarea{
     height: 5em;
 }
-
-.printproof-buttons{
-    padding: 1em;
-}
-.printproof-buttons .approved{
-    padding-left: 30px;
+.printproof-document-icon{
+    border: 2px solid #333;
+    width: 75px;
+    height: 100px;
+    display: inline-block;
+    line-height: 100px;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
     position: relative;
+    background: white;
 }
-.printproof-buttons .approved:after{
-    position: absolute;
-    top: 7px;
-    left: 0;
+.printproof-document-icon:before{
     display: block;
     content: " ";
-    background: #333;
-    width: 10px;
-    height: 4px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #fafafa;
+    position: absolute;
+    top: -5px;
+    right: -12px;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-.printproof-buttons .approved:before{
-    position: absolute;
-    top: 2px;
-    left: 6px;
+.printproof-document-icon:after{
     display: block;
     content: " ";
-    background: #333;
-    width: 16px;
-    height: 4px;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #333;
+    position: absolute;
+    top: 6px;
+    right: -1px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
-.printproof-reply-form{
-    padding: 1em;
+.printproof-document-name{
     display: block;
-}
-.printproof-reply-button{
-    text-align: right;
+    margin-top: 1em;
 }
