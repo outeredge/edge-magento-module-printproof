@@ -36,12 +36,6 @@ class Edge_PrintProof_Model_Observer
         return $this;
     }
     
-    public function updateCustomer(Varien_Event_Observer $observer)
-    {
-        $this->_sendNotification($observer, 'printproof_update_email_notification');
-        return $this;
-    }
-    
     public function approveCustomer(Varien_Event_Observer $observer)
     {
         $this->_sendNotification($observer, 'printproof_approve_email_notification');
@@ -51,12 +45,6 @@ class Edge_PrintProof_Model_Observer
     public function rejectCustomer(Varien_Event_Observer $observer)
     {
         $this->_sendNotification($observer, 'printproof_reject_email_notification');
-        return $this;
-    }
-    
-    public function updateAdmin(Varien_Event_Observer $observer)
-    {
-        $this->_sendNotification($observer, 'printproof_update_email_notification_admin', true);
         return $this;
     }
     

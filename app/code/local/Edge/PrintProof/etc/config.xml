@@ -89,24 +89,6 @@
                     </printproof_create_notify_customer>
                 </observers>
             </printproof_create_adminhtml>
-            <printproof_update_adminhtml>
-                <observers>
-                    <printproof_update_notify_customer>
-                        <type>singleton</type>
-                        <class>Edge_PrintProof_Model_Observer</class>
-                        <method>updateCustomer</method>
-                    </printproof_update_notify_customer>
-                </observers>
-            </printproof_update_adminhtml>
-            <printproof_update_customer>
-                <observers>
-                    <printproof_update_notify_admin>
-                        <type>singleton</type>
-                        <class>Edge_PrintProof_Model_Observer</class>
-                        <method>updateAdmin</method>
-                    </printproof_update_notify_admin>
-                </observers>
-            </printproof_update_customer>
             <printproof_approved_customer>
                 <observers>
                     <printproof_approved_notify_admin>
