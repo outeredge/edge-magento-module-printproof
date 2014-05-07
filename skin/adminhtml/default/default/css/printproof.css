@@ -1,18 +1,49 @@
-.printproof{
-    margin-bottom: 1em;
-    background: #F6F6F6;
-    border: 1px solid #EEE;
+.printproof-fieldset{
+    padding: 0 !important;
 }
-.printproof-status{
-    padding: 1em;
-    border-bottom: 1px solid #EEE;
-    background: #666;
-    color: #FFF;
+.printproof{
+    padding: 2em 5em;
+}
+.printproof + .printproof{
+    border-top: 1px solid #ccc;
+}
+.printproof-img{
+    text-align: center;
+}
+.printproof img{
+    max-width: 90%;
+    max-height: 250px;
+}
+.printproof-col{
+    width: 50%;
+    float: left;
+}
+.printproof-clear{
+    clear: both;
+}
+.status-Rejected{
+    color: red;
+}
+.status-Awaiting{
+    color: blue;
+}
+.status-Approved{
+    color: green;
 }
 .printproof-comment{
-    padding: 1em;
-    border-bottom: 1px solid #EEE;
+    line-height: 1.2em;
+    border-top: 1px solid #ccc;
+    padding-top: 1em;
+    margin-top: 1em;
 }
+.printproof-comment em{
+    font-size: .9em;
+}
+
+.printproof-create-fieldset .form-list td.value textarea{
+    height: 5em;
+}
+
 .printproof-buttons{
     padding: 1em;
 }

@@ -10,7 +10,7 @@ class Edge_PrintProof_Model_Proof extends Mage_Core_Model_Abstract
     
     public function getCommentList()
     {
-        $data = new Varien_Data_Collection();
+        $data = array();
         $comments = unserialize($this->getComments());
         foreach ($comments as $comment){
             
@@ -19,9 +19,10 @@ class Edge_PrintProof_Model_Proof extends Mage_Core_Model_Abstract
                 $comment['attachment_url'] = Mage::getBaseUrl('media') . 'printproof' . $comment['attachment'];
             }
             
-            $object = new Varien_Object();
-            $object->setData($comment);
-            $data->addItem($object);
+//            $object = new Varien_Object();
+//            $object->setData($comment);
+//            $data->addItem($object);
+            $data[] = $comment;
         }
         return $data;
     }
@@ -37,16 +38,13 @@ class Edge_PrintProof_Model_Proof extends Mage_Core_Model_Abstract
     
     public function getRejectUrl()
     {
-        return Mage::getUrl('printproof/proof/reject', array(
-            'order_id' => Mage::registry('current_order')->getId(),
-            'proof_id' => $this->getId()
-        ));
+        return Mage::getUrl('printproof/proof/reject');
     }
     
     public function getApprovalUrl()
     {
         return Mage::getUrl('printproof/proof/approve', array(
-            'order_id' => Mage::registry('current_order')->getId(),
+            'order_id' => $this->getOrderId(),
             'proof_id' => $this->getId()
         ));
     }

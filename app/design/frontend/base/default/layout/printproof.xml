@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout>
-    <sales_order_view>
+    
+    <printproof_css>
         <reference name="head">
             <action method="addItem">
                 <type>skin_css</type>
                 <name>css/printproof.css</name>
             </action>
         </reference>
-        <reference name="my.account.wrapper">
-            <block type="core/template" name="proof" after="sales.order.view" template="printproof/proof.phtml"/>
+    </printproof_css>
+    
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="printproof">
+                <name>printproof</name>
+                <path>printproof/proof/list/</path>
+                <label>My Proofs</label>
+                <urlParams></urlParams>
+                <icon>account-details</icon>
+            </action>
         </reference>
-    </sales_order_view>
+    </customer_account>
+    
+    <printproof_proof_list>
+        <update handle="customer_account"/>
+        <update handle="printproof_css"/>
+        <reference name="content">
+            <block type="core/template" name="printproof.proof.list" template="printproof/list.phtml"/>
+        </reference>
+    </printproof_proof_list>
+    
+    <printproof_proof_view>
+        <update handle="customer_account"/>
+        <update handle="printproof_css"/>
+        <reference name="content">
+            <block type="printproof/view" name="printproof.proof.view" template="printproof/view.phtml"/>
+        </reference>
+    </printproof_proof_view>
+    
 </layout>

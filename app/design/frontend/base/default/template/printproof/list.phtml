@@ -1,0 +1,22 @@
+<?php $proofs = Mage::helper('printproof')->getProofsForCustomer() ?>
+<div class="my-account">
+    <h1><?php echo $this->__('My Proofs') ?></h1>
+    <?php if (!empty($proofs)): ?>
+    <div class="row table-head">
+        <div class="large-3"><?php echo $this->__('Proof') ?></div>
+        <div class="large-3"><?php echo $this->__('Order') ?></div>
+        <div class="large-3"><?php echo $this->__('Item') ?></div>
+        <div class="large-3"><?php echo $this->__('Status') ?></div>
+    </div>
+    <?php foreach ($proofs as $proof): ?>
+        <div class="row table-body cursor-pointer printproof-row" onclick="window.location.href = '<?php echo $this->getUrl('printproof/proof/view', array('proof_id' => $proof->getId())) ?>'">
+            <div class="large-3"><?php echo Mage::helper('printproof')->getProofImage($proof); ?></div>
+            <div class="large-3">#<?php echo $proof->getIncrementId() ?></div>
+            <div class="large-3">#<?php echo $proof->getItemId() ?></div>
+            <div class="large-3"><span class="status-<?php echo $proof->getStatus() ?>"><?php echo $proof->getStatus() ?></span></div>
+        </div>
+    <?php endforeach; ?>
+    <?php else: ?>
+        <p><?php echo $this->__('You currently have no proofs.') ?></p>
+    <?php endif; ?>
+</div>

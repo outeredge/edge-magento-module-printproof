@@ -1,0 +1,65 @@
+<?php $proof = $this->getProof(); ?>
+<?php $comments = $proof->getCommentList(); ?>
+<?php $customerName = Mage::helper('customer')->getCustomerName(); ?>
+<div class="my-account">
+    <div class="row">
+        <div class="large-6">
+            <h1><?php echo $this->__('My Proof') ?></h1>
+        </div>
+        <div class="large-6 text-right inline-with-h1">
+            <span class="status-<?php echo $proof->getStatus() ?>"><?php echo $proof->getStatus() ?></span>
+        </div>
+    </div>
+    <p class="h5 no-margin">Order: <a href="<?php echo $this->getUrl('sales/order/view', array('order_id' => $proof->getOrderId())) ?>">#<?php echo $proof->getIncrementId() ?></a></p>
+    <p class="h5 margin-bottom-large">Item: #<?php echo $proof->getItemId() ?></p>
+    <div class="printproof text-center">
+        <?php echo Mage::helper('printproof')->getProofImage($proof) ?>
+        <?php if (!$proof->getApproved() && !$proof->getRejected()): ?>
+            <form id="printproof_reply" action="<?php echo $proof->getRejectUrl() ?>" method="POST" enctype="multipart/form-data" class="printproof-reply-form">
+                <input type="hidden" name="proof_id" value="<?php echo $proof->getId() ?>"/>
+                <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
+                <div class="row text-center margin-vertical-large">
+                    <button type="submit" class="button button-grey"><?php echo Mage::helper('printproof')->__('Reject and Reply') ?></button>
+                    <a class="button button-approve" href="<?php echo $proof->getApprovalUrl() ?>">
+                        <?php echo Mage::helper('printproof')->__('Approve') ?>
+                    </a>
+                </div>
+                <ul class="form-list">
+                    <li class="wide">
+                        <textarea name="comment" id="comment_<?php echo $proof->getId() ?>" class="textarea required-entry" rows="5" style="width: 100%"></textarea>
+                    </li>
+                </ul>
+            </form>
+            <script>
+                new VarienForm('printproof_reply');
+            </script>
+        <?php endif; ?>
+    </div>
+    <div class="phone-style-messages">
+        <?php foreach (array_reverse($comments) as $comment): ?>
+            <div class="message-box<?php if ($customerName === $comment['name']): ?> from-user<?php endif; ?>">
+                <p>
+                    <strong><?php echo $comment['name'] ?></strong><br/>
+                    <em><?php echo $comment['date'] ?></em>
+                </p>
+                <p><?php echo $comment['comment'] ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    
+    <script type="text/javascript">
+        $$('.button-reject').invoke('observe', 'click', function(e){
+            if (!window.confirm('Are you sure you want to reject this proof?')){
+                e.preventDefault();
+                return false;
+            }
+        });
+        $$('.button-approve').invoke('observe', 'click', function(e){
+            if (!window.confirm('Are you sure you want to accept this proof?')){
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    
+</div>

@@ -7,6 +7,7 @@ $this->run("
     CREATE TABLE IF NOT EXISTS `{$this->getTable('printproof/proof')}` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `order_id` int(10) unsigned NOT NULL,
+        `item_id` int(10) unsigned NOT NULL,
         `comments` text NULL DEFAULT NULL,
         `approved` tinyint(1) NOT NULL DEFAULT '0',
         `rejected` tinyint(1) NOT NULL DEFAULT '0',
@@ -14,9 +15,13 @@ $this->run("
         `approved_date` timestamp NULL DEFAULT NULL,
         PRIMARY KEY (`id`),
         KEY `order_id` (`order_id`),
+        KEY `item_id` (`item_id`),
         CONSTRAINT `printproof_ibfk_1` 
             FOREIGN KEY (`order_id`) 
-            REFERENCES `sales_flat_order` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
+            REFERENCES `sales_flat_order` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+        CONSTRAINT `printproof_ibfk_2`
+            FOREIGN KEY (`item_id`)
+            REFERENCES `sales_flat_order_item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 

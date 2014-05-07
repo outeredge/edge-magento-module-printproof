@@ -32,6 +32,7 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
         }
         
         $proof->setOrderId($params['order_id']);
+        $proof->setItemId($params['item_id']);
         $proof->setComments(serialize(array($comment)));
         $proof->save();
         

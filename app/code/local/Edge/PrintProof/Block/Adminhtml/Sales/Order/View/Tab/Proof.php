@@ -12,7 +12,13 @@ class Edge_PrintProof_Block_Adminhtml_Sales_Order_View_Tab_Proof
     
     public function getOrder()
     {
-        return Mage::registry('current_order');
+        $order = Mage::registry('current_order');
+        if($order instanceof Mage_Sales_Model_Order){
+            return $order;
+        }
+        
+        $order = Mage::getModel('sales/order')->load(Mage::app()->getRequest()->getParam('order_id', false));
+        return $order;
     }
     
     public function getOrderId()

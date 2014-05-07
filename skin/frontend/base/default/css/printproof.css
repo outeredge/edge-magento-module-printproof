@@ -1,52 +1,9 @@
-.printproof{
-    margin-bottom: 1em;
-    background: #F6F6F6;
-    border: 1px solid #EEE;
+.status-Approved{
+    color: green;
 }
-.printproof-status{
-    padding: 1em;
-    border-bottom: 1px solid #EEE;
-    background: #666;
-    color: #FFF;
+.status-Rejected{
+    color: red;
 }
-.printproof-comment{
-    padding: 1em;
-    border-bottom: 1px solid #EEE;
-}
-.printproof-buttons{
-    padding: 1em;
-}
-.printproof-buttons .approved{
-    padding-left: 30px;
-    position: relative;
-}
-.printproof-buttons .approved:after{
-    position: absolute;
-    top: 7px;
-    left: 0;
-    display: block;
-    content: " ";
-    background: #333;
-    width: 10px;
-    height: 4px;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-.printproof-buttons .approved:before{
-    position: absolute;
-    top: 2px;
-    left: 6px;
-    display: block;
-    content: " ";
-    background: #333;
-    width: 16px;
-    height: 4px;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-.printproof-reply-form{
-    padding: 1em;
-}
-.printproof-reply-button{
-    text-align: right;
+.status-Awaiting{
+    color: blue;
 }

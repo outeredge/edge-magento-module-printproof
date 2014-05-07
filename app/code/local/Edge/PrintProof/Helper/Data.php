@@ -2,6 +2,17 @@
 
 class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    public function getProofImage($proof)
+    {
+        $comments = $proof->getCommentList();
+        foreach ($comments as $comment){
+            if (isset($comment['attachment_url']) && $comment['attachment_url']){
+                return '<a href="' . $comment['attachment_url'] . '"><img src="' . $comment['attachment_url'] . '" alt="Attachment"></a>';
+            }
+        }
+        return 'No Image';
+    }
+    
     public function getProofsForOrder($id=false)
     {
         if(!$id){
@@ -11,6 +22,27 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getModel('printproof/proof')
             ->getCollection()
             ->addFieldToFilter('order_id', array('eq' => $id));
+    }
+    
+    public function getProofsForCustomer()
+    {
+        if(!Mage::getSingleton('customer/session')->isLoggedIn()){
+            return;
+        }
+        
+        $customer = Mage::helper('customer')->getCustomer();
+        
+        $collection = Mage::getModel('printproof/proof')
+            ->getCollection()
+            ->setOrder('creation_date', 'DESC');
+        
+        $collection->getSelect()->join(
+            array('order' => 'sales_flat_order'), 
+            'order.entity_id = main_table.order_id AND order.customer_id = ' . $customer->getId(), 
+            array('order.customer_id', 'order.increment_id')
+        );
+        
+        return $collection;
     }
     
     public function saveAttachment($proofId=false)
