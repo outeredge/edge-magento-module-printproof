@@ -10,7 +10,7 @@
     </div>
     <?php foreach ($proofs as $proof): ?>
         <div class="row table-body cursor-pointer printproof-row" onclick="window.location.href = '<?php echo $this->getUrl('printproof/proof/view', array('proof_id' => $proof->getId())) ?>'">
-            <div class="large-3"><?php echo Mage::helper('printproof')->getProofImage($proof); ?></div>
+            <div class="large-3"><?php echo Mage::helper('printproof')->getProofImage($proof, false); ?></div>
             <div class="large-3">#<?php echo $proof->getIncrementId() ?></div>
             <div class="large-3">#<?php echo $proof->getItemId() ?></div>
             <div class="large-3"><span class="status-<?php echo $proof->getStatus() ?>"><?php echo $proof->getStatus() ?></span></div>

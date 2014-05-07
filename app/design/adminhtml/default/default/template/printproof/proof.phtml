@@ -57,17 +57,10 @@
     <div class="fieldset printproof-fieldset">
     <?php if ($proofs->count()): ?>
         <?php foreach ($proofs as $proof): ?>
+            <?php $comments = $proof->getCommentList(); ?>
             <div class="printproof">
                 <div class="printproof-col printproof-img">
-                    <?php $comments = $proof->getCommentList(); ?>
-                    <?php foreach ($comments as $comment): ?>
-                        <?php if (isset($comment['attachment_url']) && $comment['attachment_url']): ?>
-                            <a href="<?php echo $comment['attachment_url'] ?>">
-                                <img src="<?php echo $comment['attachment_url'] ?>" alt="Attachment">
-                            </a>
-                        <?php break;
-                        endif; ?>
-                    <?php endforeach; ?>
+                    <?php echo Mage::helper('printproof')->getProofImage($proof); ?>
                 </div>
                 <div class="printproof-col">
                     <p>

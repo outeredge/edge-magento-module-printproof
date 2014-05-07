@@ -2,12 +2,16 @@
 
 class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    public function getProofImage($proof)
+    public function getProofImage($proof, $link=true)
     {
         $comments = $proof->getCommentList();
         foreach ($comments as $comment){
             if (isset($comment['attachment_url']) && $comment['attachment_url']){
-                return '<a href="' . $comment['attachment_url'] . '"><img src="' . $comment['attachment_url'] . '" alt="Attachment"></a>';
+                $html ='<img src="' . $comment['attachment_url'] . '" alt="Attachment">';
+                if($link){
+                    $html = '<a href="' . $comment['attachment_url'] . '">' . $html . '</a>';
+                }
+                return $html;
             }
         }
         return 'No Image';
@@ -122,75 +126,5 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         }
         
         return true;
-    }
-    
-    public function getProofHtml($proof)
-    {
-        $html = '<div class="proof">';
-        
-        if ($proof->getApproved()){
-            $html.= '<ul class="messages"><li class="success-msg">Accepted</li></ul>';
-        } else {
-            $html.= '<ul class="messages"><li class="error-msg">Not Accepted</li></ul>';
-        }
-        
-        if (Mage::app()->getStore()->isAdmin()){
-            $action = Mage::getUrl('printproofadmin/admin/addToExisting', array(
-                'order_id' => Mage::app()->getRequest()->getParam('order_id', false)
-            ));
-        } else {
-            $action = Mage::getUrl('printproof/proof/addToExisting', array(
-                'order_id' => Mage::app()->getRequest()->getParam('order_id', false)
-            ));
-            
-            if ($proof->getApproved() == 0){
-                $approveUrl = Mage::getUrl('printproof/proof/approve', array(
-                    'order_id'      => Mage::app()->getRequest()->getParam('order_id', false),
-                    'proof_id'   => $proof->getId()
-                ));
-                $html.= '<a href="' . $approveUrl . '" class="button button-approve">' . Mage::helper('printproof')->__('Approve') . '</a>';
-            } else{
-                $unapproveUrl = Mage::getUrl('printproof/proof/unapprove', array(
-                    'order_id'      => Mage::app()->getRequest()->getParam('order_id', false),
-                    'proof_id'   => $proof->getId()
-                ));
-                $html.= '<a href="' . $unapproveUrl . '" class="button button-unapprove">' . Mage::helper('printproof')->__('Unapprove') . '</a>';
-            }
-        }
-        
-        $comments = unserialize($proof->getComments());
-        
-        if (!empty($comments)){
-            foreach ($comments as $comment){
-                $html.= '<div class="comment">';
-                $html.= '<div class="name"><strong>' . $comment['name'] . '</strong><br/>' . date('jS M Y H:i:s', $comment['date']) . '</div>';
-                $html.= '<div class="text">' . $comment['comment'] . '</div>';
-                $html.= '<div class="attachment"><a href="' . Mage::getBaseUrl('media') . 'printproof' . $comment['attachment'] . '">';
-                $html.= '<img src="'. Mage::getBaseUrl('media') . 'printproof' . $comment['attachment'] . '" alt="" />';
-                $html.= '</a></div>';
-                $html.= '</div>';
-            }
-        }
-        
-        $html.= '<form action="' . $action . '" method="POST" enctype="multipart/form-data">';
-        $html.= '<input type="hidden" name="proof_id" value="' . $proof->getId() . '"/>';
-        $html.= '<input type="hidden" name="form_key" value="' . Mage::getSingleton('core/session')->getFormKey() . '"/>';
-        $html.= '<div class="comment">';
-        $html.= '<div class="name"><button type="submit" class="button">Add Comment</button></div>';
-        $html.= '<div class="text"><textarea name="comment" class="textarea" style="width: 100%;"></textarea></div>';
-        $html.= '<div class="attachment"><input type="file" name="attachment_' . $proof->getId() . '" /></div>';
-        $html.= '</div>';
-        $html.= '</form>';
-        
-        $html.= '</div>';
-        return $html;
-    }
-    
-    public function sendNotificationToCustomer()
-    {
-        $email = Mage::getModel('core/email_template');
-        $email->loadDefault('printproof_email_notification');
-        
-        $email->send('mike@outeredgeuk.com', 'Michael Windell');
     }
 }
