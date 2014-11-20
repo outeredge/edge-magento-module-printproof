@@ -12,12 +12,6 @@
     "require": {
         "magento-hackathon/magento-composer-installer": "*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:outeredge/edge-magento-module-printproof.git"
-        }
-    ],
     "extra": {
         "map": [
             ["app/code/local/Edge/PrintProof", "app/code/local/Edge/PrintProof"],
