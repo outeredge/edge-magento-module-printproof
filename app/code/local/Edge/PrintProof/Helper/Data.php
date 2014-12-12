@@ -25,7 +25,7 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
                         break;
                 }
                 if($link){
-                    $html = '<a href="' . $comment['attachment_url'] . '">' . $html . '</a>';
+                    $html = '<a href="' . $comment['attachment_url'] . '" target="_blank">' . $html . '</a>';
                 }
                 return $html;
             }
