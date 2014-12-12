@@ -3,21 +3,22 @@
 class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
 {
     protected $_publicActions = array('list', 'createProof', 'addToExisting');
-    
+
     public function listAction()
     {
         $this->loadLayout();
         $html = $this->getLayout()->createBlock('printproof/adminhtml_sales_order_view_tab_proof')->toHtml();
         $this->getResponse()->setBody($html);
     }
-    
+
     public function createProofAction()
     {
         $params = $this->getRequest()->getParams();
         $proof = Mage::getModel('printproof/proof');
         $admin = Mage::getSingleton('admin/session')->getUser();
-        
+
         $comment = array(
+            'admin' => 1,
             'name' => $admin->getFirstname() . ' ' . $admin->getLastname(),
             'date' => time()
         );
@@ -30,17 +31,17 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
                 $comment['attachment'] = $attachment;
             }
         }
-        
+
         $proof->setOrderId($params['order_id']);
         $proof->setItemId($params['item_id']);
         $proof->setComments(serialize(array($comment)));
         $proof->save();
-        
+
         Mage::dispatchEvent('printproof_create_adminhtml', array('proof' => $proof));
         $this->_redirect('adminhtml/sales_order/view', array('order_id'  => $params['order_id']));
         return;
     }
-    
+
     public function addToExistingAction()
     {
         $params = $this->getRequest()->getParams();
@@ -48,7 +49,7 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('adminhtml/sales_order/view', array('order_id'  => $params['order_id']));
             return;
         }
-        
+
         Mage::getSingleton('adminhtml/session')->addError('An error occured whilst attempting to update the proof.');
         $this->_redirect('adminhtml/sales_order/view', array('order_id'  => $params['order_id']));
         return;

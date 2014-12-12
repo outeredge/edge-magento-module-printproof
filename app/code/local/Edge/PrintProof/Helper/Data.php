@@ -114,7 +114,10 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
             return;
         }
 
-        $comment = array('date' => time());
+        $comment = array(
+            'admin' => Mage::app()->getStore()->isAdmin() ? 1 : 0,
+            'date' => time()
+        );
 
         if (Mage::app()->getStore()->isAdmin()){
             $admin = Mage::getSingleton('admin/session')->getUser();
@@ -123,7 +126,6 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
             // Get customer name
             $comment['name'] = Mage::helper('customer')->getCustomerName();
         }
-
 
         if (isset($params['comment'])){
             $comment['comment'] = $params['comment'];
