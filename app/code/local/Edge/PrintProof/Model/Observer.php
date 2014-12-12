@@ -23,7 +23,8 @@ class Edge_PrintProof_Model_Observer
             $name,
             array(
                 'order' => $order,
-                'proof' => $proof
+                'proof' => $proof,
+                'logo_url' => Mage::getBaseUrl('media') . 'email/logo/' . Mage::getStoreConfig('design/email/logo')
             )
         );
 
