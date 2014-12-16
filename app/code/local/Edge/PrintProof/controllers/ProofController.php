@@ -47,6 +47,8 @@ class Edge_PrintProof_ProofController extends Mage_Core_Controller_Front_Action
         $proof->save();
 
         Mage::dispatchEvent('printproof_approved_customer', array('proof' => $proof));
+
+        Mage::getSingleton('core/session')->addSuccess('Success! Your proof has been approved.');
         $this->_redirect('printproof/proof/list');
         return;
     }
