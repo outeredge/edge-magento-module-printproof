@@ -15,6 +15,11 @@ class Edge_PrintProof_Model_Observer
             $name  = $order->getCustomerFirstname() . ' ' . $order->getCustomerLastName();
         }
 
+        $customTemplate = Mage::getModel('core/email_template')->load($template, 'orig_template_code');
+        if ($customTemplate->getId()) {
+            $template = $customTemplate->getId();
+        }
+
         $emailModel = Mage::getModel('core/email_template');
         $emailModel->sendTransactional(
             $template,
