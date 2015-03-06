@@ -74,9 +74,11 @@
                                 <em><?php echo $comment['date'] ?></em>
                             </p>
                             <p><?php echo $comment['comment'] ?></p>
-                            <a href="<?php echo $comment['attachment_url'] ?>">
-                                <?php echo $comment['attachment'] ?>
-                            </a>
+                            <?php if(isset($comment['attachment'])): ?>
+                                <a href="<?php echo $comment['attachment_url'] ?>">
+                                    <?php echo $comment['attachment'] ?>
+                                </a>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>

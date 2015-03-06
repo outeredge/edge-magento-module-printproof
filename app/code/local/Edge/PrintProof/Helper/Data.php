@@ -120,8 +120,12 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         );
 
         if (Mage::app()->getStore()->isAdmin()){
-            $admin = Mage::getSingleton('admin/session')->getUser();
-            $comment['name'] = $admin->getFirstname() . ' ' . $admin->getLastname();
+            if (Mage::getStoreConfig('printproof/general/companyname')) {
+                $comment['name'] = Mage::getStoreConfig('general/store_information/name');
+            } else {
+                $admin = Mage::getSingleton('admin/session')->getUser();
+                $comment['name'] = $admin->getFirstname() . ' ' . $admin->getLastname();
+            }
         } else {
             // Get customer name
             $comment['name'] = Mage::helper('customer')->getCustomerName();

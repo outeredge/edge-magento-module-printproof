@@ -17,9 +17,15 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
         $proof = Mage::getModel('printproof/proof');
         $admin = Mage::getSingleton('admin/session')->getUser();
 
+        if (Mage::getStoreConfig('printproof/general/companyname')) {
+            $name = Mage::getStoreConfig('general/store_information/name');
+        } else {
+            $name = $admin->getFirstname() . ' ' . $admin->getLastname();
+        }
+        
         $comment = array(
             'admin' => 1,
-            'name' => $admin->getFirstname() . ' ' . $admin->getLastname(),
+            'name' => $name,
             'date' => time()
         );
         if (isset($params['comment'])){
