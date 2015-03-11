@@ -39,63 +39,6 @@
                         </companyname>
                     </fields>
                 </general>
-                <email>
-                    <class>separator-top</class>
-                    <label>Email Templates</label>
-                    <tab>edge</tab>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>200</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                            <create_notification_template translate="label">
-                                <label>New Print Proof Email</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_email_template</source_model>
-                                <sort_order>10</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <show_in_website>1</show_in_website>
-                                <show_in_store>1</show_in_store>
-                            </create_notification_template>
-                            <approve_notification_template translate="label">
-                                <label>Approve Print Proof Email</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_email_template</source_model>
-                                <sort_order>20</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <show_in_website>1</show_in_website>
-                                <show_in_store>1</show_in_store>
-                            </approve_notification_template>
-                            <approve_notification_admin_template translate="label">
-                                <label>Approve Print Proof Email (Admin)</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_email_template</source_model>
-                                <sort_order>30</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <show_in_website>1</show_in_website>
-                                <show_in_store>1</show_in_store>
-                            </approve_notification_admin_template>
-                            <reject_notification_template translate="label">
-                                <label>Reject Print Proof Email</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_email_template</source_model>
-                                <sort_order>40</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <show_in_website>1</show_in_website>
-                                <show_in_store>1</show_in_store>
-                            </reject_notification_template>
-                            <reject_notification_admin_template translate="label">
-                                <label>Reject Print Proof Email (Admin)</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_email_template</source_model>
-                                <sort_order>50</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <show_in_website>1</show_in_website>
-                                <show_in_store>1</show_in_store>
-                            </reject_notification_admin_template>
-                    </fields>
-                </email>
             </groups>
         </printproof>
     </sections>

@@ -42,31 +42,41 @@
         </resources>
         <template>
             <email>
-                <printproof_email_create_notification_template translate="label" module="printproof">
-                    <label>Print Proof Created Notification</label>
+                <printproof_create_email_notification module="printproof">
+                    <label>PrintProof Created Notification</label>
                     <file>printproof_create_email_notification.html</file>
                     <type>html</type>
-                </printproof_email_create_notification_template>
-                <printproof_email_approve_notification_template translate="label" module="printproof">
-                    <label>Print Proof Approved Notification</label>
+                </printproof_create_email_notification>
+                <printproof_update_email_notification module="printproof">
+                    <label>PrintProof Updated Notification</label>
+                    <file>printproof_update_email_notification.html</file>
+                    <type>html</type>
+                </printproof_update_email_notification>
+                <printproof_approve_email_notification module="printproof">
+                    <label>PrintProof Approved Notification</label>
                     <file>printproof_approve_email_notification.html</file>
                     <type>html</type>
-                </printproof_email_approve_notification_template>
-                <printproof_email_approve_notification_admin_template translate="label" module="printproof">
-                    <label>Print Proof Approved Notification (Admin)</label>
-                    <file>printproof_approve_email_notification_admin.html</file>
-                    <type>html</type>
-                </printproof_email_approve_notification_admin_template>
-                <printproof_email_reject_notification_template translate="label" module="printproof">
-                    <label>Print Proof Rejected Notification</label>
+                </printproof_approve_email_notification>
+                <printproof_reject_email_notification module="printproof">
+                    <label>PrintProof Rejected Notification</label>
                     <file>printproof_reject_email_notification.html</file>
                     <type>html</type>
-                </printproof_email_reject_notification_template>
-                <printproof_email_reject_notification_admin_template translate="label" module="printproof">
-                    <label>Print Proof Rejected Notification (Admin)</label>
+                </printproof_reject_email_notification>
+                <printproof_update_email_notification_admin module="printproof">
+                    <label>PrintProof Updated Notification (Admin)</label>
+                    <file>printproof_update_email_notification_admin.html</file>
+                    <type>html</type>
+                </printproof_update_email_notification_admin>
+                <printproof_approve_email_notification_admin module="printproof">
+                    <label>PrintProof Approved Notification (Admin)</label>
+                    <file>printproof_approve_email_notification_admin.html</file>
+                    <type>html</type>
+                </printproof_approve_email_notification_admin>
+                <printproof_reject_email_notification_admin module="printproof">
+                    <label>PrintProof Rejected Notification (Admin)</label>
                     <file>printproof_reject_email_notification_admin.html</file>
                     <type>html</type>
-                </printproof_email_reject_notification_admin_template>
+                </printproof_reject_email_notification_admin>
             </email>
         </template>
         <events>

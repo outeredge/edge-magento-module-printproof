@@ -6,7 +6,9 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $comments = $proof->getCommentList();
         foreach ($comments as $comment){
-            if (isset($comment['attachment_url']) && $comment['attachment_url']){
+            if (isset($comment['attachment']) && $comment['attachment']){
+
+                $comment['attachment_url'] = Mage::helper('edge/image')->getImage($comment['attachment']);
 
                 $extension = explode('.', $comment['attachment_url']);
                 switch($extension[count($extension)-1]){
@@ -73,11 +75,6 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function saveAttachment($proofId=false)
     {
-        $path = Mage::getBaseDir('media') . '/printproof/';
-        if (!file_exists(($path))){
-            mkdir($path);
-        }
-
         $name = 'attachment';
         if ($proofId){
             $name.= '_' . $proofId;
@@ -87,12 +84,15 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
 
             try {
                 $uploader = new Varien_File_Uploader($name);
-                $image = $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png','eps','pdf','ai','psd'))
-                    ->setAllowRenameFiles(true)
-                    ->setFilesDispersion(true)
-                    ->save($path, $_FILES[$name]['name']);
+                $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png','eps','pdf','ai','psd'));
+                $uploader->setAllowRenameFiles(true);
+                $uploader->setFilesDispersion(false);
 
-                return $image['file'];
+                $dirPath = Mage::getBaseDir('media') . DS . 'printproof' . DS;
+                $result = $uploader->save($dirPath, $_FILES[$name]['name']);
+                Mage::helper('core/file_storage_database')->saveFile($dirPath . $result['file']);
+
+                return 'printproof/' . $result['file'];
 
             } catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getTraceAsString());

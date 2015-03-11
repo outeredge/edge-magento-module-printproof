@@ -2,8 +2,7 @@
 
 class Edge_PrintProof_Model_Observer
 {
-        
-    protected function _sendNotification(Varien_Event_Observer $observer, $templateCode, $sendToAdmin=false)
+    protected function _sendNotification(Varien_Event_Observer $observer, $template, $sendToAdmin=false)
     {
         $proof = $observer->getEvent()->getProof();
         $order = Mage::getModel('sales/order')->load($proof->getOrderId());
@@ -15,24 +14,24 @@ class Edge_PrintProof_Model_Observer
             $email = $order->getCustomerEmail();
             $name  = $order->getCustomerFirstname() . ' ' . $order->getCustomerLastName();
         }
-        
-        $templateConfigPath = 'printproof/email/' . $templateCode;
 
-        $mailTemplate = Mage::getModel('core/email_template');
-        $template = Mage::getStoreConfig($templateConfigPath, Mage::app()->getStore()->getId());
-        
-        $mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>Mage::app()->getStore()->getId()))
-            ->sendTransactional(
-                $template,
-                'general',
-                $email,
-                $name,
-                array(
-                    'order' => $order,
-                    'proof' => $proof,
-                    'logo_url' => Mage::getBaseUrl('media') . 'email/logo/' . Mage::getStoreConfig('design/email/logo')
-                )
-            );
+        $customTemplate = Mage::getModel('core/email_template')->load($template, 'orig_template_code');
+        if ($customTemplate->getId()) {
+            $template = $customTemplate->getId();
+        }
+
+        $emailModel = Mage::getModel('core/email_template');
+        $emailModel->sendTransactional(
+            $template,
+            'general',
+            $email,
+            $name,
+            array(
+                'order' => $order,
+                'proof' => $proof,
+                'logo_url' => Mage::getBaseUrl('media') . 'email/logo/' . Mage::getStoreConfig('design/email/logo')
+            )
+        );
 
         return $this;
     }
@@ -44,35 +43,35 @@ class Edge_PrintProof_Model_Observer
         $order->setStatus(Edge_PrintProof_Model_Proof::STATUS_AWAITING);
         $order->save();
 
-        $this->_sendNotification($observer, 'create_notification_template');
+        $this->_sendNotification($observer, 'printproof_create_email_notification');
         return $this;
     }
 
     public function approveCustomer(Varien_Event_Observer $observer)
     {
         $this->_updateOrderApproved($observer);
-        $this->_sendNotification($observer, 'approve_notification_template');
+        $this->_sendNotification($observer, 'printproof_approve_email_notification');
         return $this;
     }
 
     public function rejectCustomer(Varien_Event_Observer $observer)
     {
         $this->_updateOrderRejected($observer);
-        $this->_sendNotification($observer, 'reject_notification_template');
+        $this->_sendNotification($observer, 'printproof_reject_email_notification');
         return $this;
     }
 
     public function approveAdmin(Varien_Event_Observer $observer)
     {
         $this->_updateOrderApproved($observer);
-        $this->_sendNotification($observer, 'approve_notification_admin_template', true);
+        $this->_sendNotification($observer, 'printproof_approve_email_notification_admin', true);
         return $this;
     }
 
     public function rejectAdmin(Varien_Event_Observer $observer)
     {
         $this->_updateOrderRejected($observer);
-        $this->_sendNotification($observer, 'reject_notification_admin_template', true);
+        $this->_sendNotification($observer, 'printproof_reject_email_notification_admin', true);
         return $this;
     }
 

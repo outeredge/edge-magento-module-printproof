@@ -75,8 +75,8 @@
                             </p>
                             <p><?php echo $comment['comment'] ?></p>
                             <?php if(isset($comment['attachment'])): ?>
-                                <a href="<?php echo $comment['attachment_url'] ?>">
-                                    <?php echo $comment['attachment'] ?>
+                                <a href="<?php echo Mage::helper('edge/image')->getImage($comment['attachment']) ?>">
+                                    <?php echo Mage::helper('edge/image')->getImage($comment['attachment']) ?>
                                 </a>
                             <?php endif; ?>
                         </div>
