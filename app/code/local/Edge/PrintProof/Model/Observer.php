@@ -9,8 +9,8 @@ class Edge_PrintProof_Model_Observer
         $order = Mage::getModel('sales/order')->load($proof->getOrderId());
 
         if ($sendToAdmin){
-            $email = Mage::getStoreConfig('trans_email/ident_general/email');
-            $name  = Mage::getStoreConfig('trans_email/ident_general/name');
+            $email = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail') . '/email');
+            $name  = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail') . '/name');
         } else {
             $email = $order->getCustomerEmail();
             $name  = $order->getCustomerFirstname() . ' ' . $order->getCustomerLastName();
