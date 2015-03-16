@@ -65,7 +65,7 @@
                 <div class="printproof-col">
                     <p>
                         Item: <strong>#<?php echo $proof->getItemId() ?></strong><br>
-                        Status: <strong class="status-<?php echo $proof->getStatus() ?>"><?php echo $proof->getStatus() ?></strong>
+                        Status: <strong class="status-<?php echo $proof->getStatus() ?>"><?php echo $proof->getStatus() ?> <?php echo $proof->getApprovedDate() ? 'on ' . date('jS M Y H:i', strtotime($proof->getApprovedDate())) : '' ?></strong>
                     </p>
                     <?php foreach (array_reverse($comments) as $comment): ?>
                         <div class="printproof-comment">
