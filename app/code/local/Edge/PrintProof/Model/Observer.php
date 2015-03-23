@@ -5,12 +5,13 @@ class Edge_PrintProof_Model_Observer
         
     protected function _sendNotification(Varien_Event_Observer $observer, $templateCode, $sendToAdmin=false)
     {
-        $proof = $observer->getEvent()->getProof();
-        $order = Mage::getModel('sales/order')->load($proof->getOrderId());
+        $proof   = $observer->getEvent()->getProof();
+        $order   = Mage::getModel('sales/order')->load($proof->getOrderId());
+        $storeId = $order->getStoreId();
 
         if ($sendToAdmin){
-            $email = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail') . '/email');
-            $name  = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail') . '/name');
+            $email = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail', $storeId) . '/email', $storeId);
+            $name  = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail', $storeId) . '/name', $storeId);
         } else {
             $email = $order->getCustomerEmail();
             $name  = $order->getCustomerFirstname() . ' ' . $order->getCustomerLastName();
@@ -19,9 +20,9 @@ class Edge_PrintProof_Model_Observer
         $templateConfigPath = 'printproof/email/' . $templateCode;
 
         $mailTemplate = Mage::getModel('core/email_template');
-        $template = Mage::getStoreConfig($templateConfigPath, Mage::app()->getStore()->getId());
+        $template = Mage::getStoreConfig($templateConfigPath, $storeId);
         
-        $mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>Mage::app()->getStore()->getId()))
+        $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
             ->sendTransactional(
                 $template,
                 'general',
@@ -30,7 +31,7 @@ class Edge_PrintProof_Model_Observer
                 array(
                     'order' => $order,
                     'proof' => $proof,
-                    'logo_url' => Mage::getBaseUrl('media') . 'email/logo/' . Mage::getStoreConfig('design/email/logo')
+                    'logo_url' => Mage::getBaseUrl('media') . 'email/logo/' . Mage::getStoreConfig('design/email/logo', $storeId)
                 )
             );
 
