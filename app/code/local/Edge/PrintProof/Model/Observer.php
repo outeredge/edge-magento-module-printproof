@@ -7,7 +7,6 @@ class Edge_PrintProof_Model_Observer
     {
         $proof   = $observer->getEvent()->getProof();
         $order   = Mage::getModel('sales/order')->load($proof->getOrderId());
-        $storeId = $order->getStoreId();
 
         if ($sendToAdmin){
             $email = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail', $storeId) . '/email', $storeId);
