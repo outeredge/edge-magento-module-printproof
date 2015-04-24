@@ -7,6 +7,7 @@ class Edge_PrintProof_Model_Observer
     {
         $proof   = $observer->getEvent()->getProof();
         $order   = Mage::getModel('sales/order')->load($proof->getOrderId());
+        $storeId = $order->getStoreId();
 
         if ($sendToAdmin){
             $email = Mage::getStoreConfig('trans_email/ident_' . Mage::getStoreConfig('printproof/general/adminemail', $storeId) . '/email', $storeId);
@@ -19,9 +20,9 @@ class Edge_PrintProof_Model_Observer
         $templateConfigPath = 'printproof/email/' . $templateCode;
 
         $mailTemplate = Mage::getModel('core/email_template');
-        $template = Mage::getStoreConfig($templateConfigPath, $order->getStoreId());
+        $template = Mage::getStoreConfig($templateConfigPath, $storeId);
         
-        $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $order->getStoreId()))
+        $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
             ->sendTransactional(
                 $template,
                 'general',
