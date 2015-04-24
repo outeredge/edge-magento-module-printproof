@@ -20,9 +20,9 @@ class Edge_PrintProof_Model_Observer
         $templateConfigPath = 'printproof/email/' . $templateCode;
 
         $mailTemplate = Mage::getModel('core/email_template');
-        $template = Mage::getStoreConfig($templateConfigPath, $storeId);
+        $template = Mage::getStoreConfig($templateConfigPath, $order->getStoreId());
         
-        $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
+        $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $order->getStoreId()))
             ->sendTransactional(
                 $template,
                 'general',
@@ -30,8 +30,7 @@ class Edge_PrintProof_Model_Observer
                 $name,
                 array(
                     'order' => $order,
-                    'proof' => $proof,
-                    'logo_url' => Mage::getBaseUrl('media') . 'email/logo/' . Mage::getStoreConfig('design/email/logo', $storeId)
+                    'proof' => $proof
                 )
             );
 
