@@ -63,16 +63,14 @@ class Edge_PrintProof_Model_Observer
     public function approveAdmin(Varien_Event_Observer $observer)
     {
         $this->_updateOrderApproved($observer);
-        $this->_sendNotification($observer,
-            'approve_notification_admin_template', true);
+        $this->_sendNotification($observer, 'approve_notification_admin_template', true);
         return $this;
     }
 
     public function rejectAdmin(Varien_Event_Observer $observer)
     {
         $this->_updateOrderRejected($observer);
-        $this->_sendNotification($observer,
-            'reject_notification_admin_template', true);
+        $this->_sendNotification($observer, 'reject_notification_admin_template', true);
         return $this;
     }
 
