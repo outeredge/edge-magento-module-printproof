@@ -67,7 +67,7 @@
                         Item: <strong>#<?php echo $proof->getItemId() ?></strong><br>
                         Status: <strong class="status-<?php echo $proof->getStatus() ?>"><?php echo $proof->getStatus() ?> <?php echo $proof->getApprovedDate() ? 'on ' . date('jS M Y H:i', strtotime($proof->getApprovedDate())) : '' ?></strong>
                     </p>
-	 	    		<?php if($proof->getStatus()): ?>
+	 	    <?php if($proof->getStatus()): ?>
                         <form action="<?php echo $this->getUrl('printproofadmin/admin/approveProof') ?>" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="form_key" value="<?php echo $this->getFormKey() ?>" />
                             <input type="hidden" name="order_id" value="<?php echo $this->getOrderId() ?>" />
