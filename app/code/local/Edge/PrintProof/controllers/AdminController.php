@@ -11,6 +11,43 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
         $this->getResponse()->setBody($html);
     }
 
+    public function createProofAction()
+    {
+        $params = $this->getRequest()->getParams();
+        $proof = Mage::getModel('printproof/proof');
+        $admin = Mage::getSingleton('admin/session')->getUser();
+
+        if (Mage::getStoreConfig('printproof/general/companyname')) {
+            $name = Mage::getStoreConfig('general/store_information/name');
+        } else {
+            $name = $admin->getFirstname() . ' ' . $admin->getLastname();
+        }
+
+        $comment = array(
+            'admin' => 1,
+            'name' => $name,
+            'date' => time()
+        );
+        if (isset($params['comment'])){
+            $comment['comment'] = $params['comment'];
+        }
+        if (!empty($_FILES) && isset($_FILES['attachment'])){
+            $attachment = Mage::helper('printproof')->saveAttachment();
+            if ($attachment){
+                $comment['attachment'] = $attachment;
+            }
+        }
+
+        $proof->setOrderId($params['order_id']);
+        $proof->setItemId($params['item_id']);
+        $proof->setComments(serialize(array($comment)));
+        $proof->save();
+        
+        Mage::dispatchEvent('printproof_create_adminhtml', array('proof' => $proof));
+        $this->_redirect('adminhtml/sales_order/view', array('order_id'  => $params['order_id']));
+        return;
+    }
+    
     public function addToExistingAction()
     {
         $params = $this->getRequest()->getParams();
