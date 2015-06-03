@@ -67,6 +67,11 @@
                     <file>printproof_reject_email_notification_admin.html</file>
                     <type>html</type>
                 </printproof_email_reject_notification_admin_template>
+                <printproof_awaiting_proof_follow_up_email translate="label" module="printproof">
+                    <label>Print Proof Follow Up Email</label>
+                    <file>printproof_awaiting_proof_follow_up_email.html</file>
+                    <type>html</type>
+                </printproof_awaiting_proof_follow_up_email>
             </email>
         </template>
         <events>
@@ -77,6 +82,11 @@
                         <class>Edge_PrintProof_Model_Observer</class>
                         <method>notifyCustomer</method>
                     </printproof_create_notify_customer>
+                    <printproof_order_status>
+                        <type>singleton</type>
+                        <class>Edge_PrintProof_Model_Observer</class>
+                        <method>setOrderCommentHistory</method>
+                    </printproof_order_status>
                 </observers>
             </printproof_create_adminhtml>
             <printproof_approved_customer>
@@ -147,4 +157,12 @@
             </updates>
         </layout>
     </adminhtml>
+    <crontab>
+        <jobs>
+            <awaiting_approval_send>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>printProof/observer::sendAwaitingProofApproval</model></run>
+            </awaiting_approval_send>
+        </jobs>
+    </crontab>
 </config>
