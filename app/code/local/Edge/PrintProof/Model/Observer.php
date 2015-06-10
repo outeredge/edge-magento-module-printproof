@@ -155,9 +155,10 @@ class Edge_PrintProof_Model_Observer
         $proof = $observer->getEvent()->getProof();
         $order = Mage::getModel('sales/order')->load($proof->getOrderId());
 
-        $comment = current(unserialize($proof->getComments()));
+        $comments   = unserialize($proof->getComments());
+        $commentMsg = end($comments);
 
-        $order->addStatusHistoryComment('Item: '.$proof->getItemId().' | Comment: '.$comment['comment']);
+        $order->addStatusHistoryComment('Item: '.$proof->getItemId().' | Comment: '.$commentMsg['comment']);
         $order->save();
     }
 }

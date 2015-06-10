@@ -115,6 +115,11 @@
                         <class>Edge_PrintProof_Model_Observer</class>
                         <method>rejectCustomer</method>
                     </printproof_rejected_notify_customer>
+                    <printproof_order_status>
+                        <type>singleton</type>
+                        <class>Edge_PrintProof_Model_Observer</class>
+                        <method>setOrderCommentHistory</method>
+                    </printproof_order_status>
                 </observers>
             </printproof_rejected_customer>
         </events>
