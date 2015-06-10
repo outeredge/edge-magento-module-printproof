@@ -39,8 +39,15 @@ class Edge_PrintProof_ProofController extends Mage_Core_Controller_Front_Action
 
     public function approveAction()
     {
+        $proofId = $this->getRequest()->getParam('proof_id', false);
+
+        Mage::helper('printproof')->addToExisting([
+            'proof_id' => $proofId,
+            'comment' => 'Approved by customer.'
+        ]);
+
         $proof = Mage::getModel('printproof/proof');
-        $proof->load($this->getRequest()->getParam('proof_id', false));
+        $proof->load($proofId);;
 
         $proof->setApproved(true);
         $proof->setApprovedDate(time());
