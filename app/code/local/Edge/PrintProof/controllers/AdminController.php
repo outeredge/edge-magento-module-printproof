@@ -26,7 +26,7 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
         $comment = array(
             'admin' => 1,
             'name' => $name,
-            'date' => time()
+            'date' => Mage::getModel('core/date')->timestamp(time())
         );
         if (isset($params['comment'])){
             $comment['comment'] = $params['comment'];
@@ -69,7 +69,7 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
 
         $proof->load($params['proof_id']);
         $proof->setApproved(true);
-        $proof->setApprovedDate(time());
+        $proof->setApprovedDate(Mage::getModel('core/date')->timestamp(time()));
         $proof->save();
 
         Mage::dispatchEvent('printproof_approved_customer', array('proof' => $proof));
@@ -85,7 +85,7 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
 
         $proof->load($params['proof_id']);
         $proof->setRejected(true);
-        $proof->setRejectedDate(time());
+        $proof->setRejectedDate(Mage::getModel('core/date')->timestamp(time()));
         $proof->save();
 
         Mage::dispatchEvent('printproof_rejected_customer', array('proof' => $proof));
