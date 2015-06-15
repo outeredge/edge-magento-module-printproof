@@ -50,7 +50,7 @@ class Edge_PrintProof_ProofController extends Mage_Core_Controller_Front_Action
         $proof->load($proofId);;
 
         $proof->setApproved(true);
-        $proof->setApprovedDate(time());
+        $proof->setApprovedDate(Mage::getModel('core/date')->timestamp(time()));
         $proof->save();
 
         Mage::dispatchEvent('printproof_approved_customer', array('proof' => $proof));
@@ -73,7 +73,7 @@ class Edge_PrintProof_ProofController extends Mage_Core_Controller_Front_Action
         $proof->load($proofId);
 
         $proof->setRejected(true);
-        $proof->setRejectedDate(time());
+        $proof->setRejectedDate(Mage::getModel('core/date')->timestamp(time()));
         $proof->save();
 
         Mage::dispatchEvent('printproof_rejected_customer', array('proof' => $proof));

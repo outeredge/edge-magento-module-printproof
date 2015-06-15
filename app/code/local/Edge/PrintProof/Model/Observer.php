@@ -104,7 +104,7 @@ class Edge_PrintProof_Model_Observer
             return $this;
         }
 
-        $time     = time();
+        $time     = Mage::getModel('core/date')->timestamp(time());
         $to       = date('Y-m-d H:i:s', $time);
         $lastTime = $time - (60 * 60 * $hours);
         $from     = date('Y-m-d H:i:s', $lastTime);

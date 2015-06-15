@@ -116,7 +116,7 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
 
         $comment = array(
             'admin' => Mage::app()->getStore()->isAdmin() ? 1 : 0,
-            'date' => time()
+            'date' => Mage::getModel('core/date')->timestamp(time())
         );
 
         if (Mage::app()->getStore()->isAdmin()){
