@@ -90,8 +90,7 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
 
                 $dirPath = Mage::getBaseDir('media') . DS . 'printproof' . DS;
                 $result = $uploader->save($dirPath, $_FILES[$name]['name']);
-                Mage::helper('core/file_storage_database')->saveFile($dirPath . $result['file']);
-
+                
                 return 'printproof/' . $result['file'];
 
             } catch (Exception $e){
