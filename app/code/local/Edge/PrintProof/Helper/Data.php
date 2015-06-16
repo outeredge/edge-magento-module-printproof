@@ -83,15 +83,14 @@ class Edge_PrintProof_Helper_Data extends Mage_Core_Helper_Abstract
         if (isset($_FILES[$name]) && (file_exists($_FILES[$name]['tmp_name']))){
 
             try {
-                $uploader = new Varien_File_Uploader($name);
+                $uploader = new Mage_Core_Model_File_Uploader($name);
                 $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png','eps','pdf','ai','psd'));
                 $uploader->setAllowRenameFiles(true);
                 $uploader->setFilesDispersion(false);
 
                 $dirPath = Mage::getBaseDir('media') . DS . 'printproof' . DS;
                 $result = $uploader->save($dirPath, $_FILES[$name]['name']);
-                Mage::helper('core/file_storage_database')->saveFile($dirPath . $result['file']);
-
+                
                 return 'printproof/' . $result['file'];
 
             } catch (Exception $e){
