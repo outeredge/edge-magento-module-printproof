@@ -129,6 +129,15 @@
             </printproof_rejected_customer>
         </events>
     </global>
+    <default>
+        <system>
+            <media_storage_configuration>
+                <allowed_resources>
+                    <printproof_image_folder>printproof</printproof_image_folder>
+                </allowed_resources>
+            </media_storage_configuration>
+        </system>
+    </default>
     <frontend>
         <routers>
             <printproof>
