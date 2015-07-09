@@ -4,6 +4,11 @@ class Edge_PrintProof_AdminController extends Mage_Adminhtml_Controller_Action
 {
     protected $_publicActions = array('list', 'createProof', 'addToExisting');
 
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/config/printproof');
+    }
+
     public function listAction()
     {
         $this->loadLayout();
