@@ -180,7 +180,7 @@
         <jobs>
             <awaiting_approval_send>
                 <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>printProof/observer::sendAwaitingProofApproval</model></run>
+                <run><model>printproof/observer::sendAwaitingProofApproval</model></run>
             </awaiting_approval_send>
         </jobs>
     </crontab>
