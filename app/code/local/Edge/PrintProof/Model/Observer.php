@@ -104,22 +104,18 @@ class Edge_PrintProof_Model_Observer
             return $this;
         }
 
-        $time     = Mage::getModel('core/date')->timestamp(time());
-        $to       = date('Y-m-d H:i:s', $time);
-        $lastTime = $time - (60 * 60 * $hours);
-        $from     = date('Y-m-d H:i:s', $lastTime);
+        //Get all the order waiting proof approval for more than $hours
+        $resource = Mage::getSingleton('core/resource');
+        $printproofTableName = $resource->getTableName('printproof/proof');
+        $query = "SELECT * FROM $printproofTableName "
+            . "WHERE (approved = 0) AND (rejected = 0) "
+            . "AND creation_date < DATE_SUB(NOW(), INTERVAL $hours HOUR)";
 
-        //Get all the order waiting proof approval
-        $allProofsAwaitingApproval = Mage::getModel('printproof/proof')
-            ->getCollection()
-            ->addFieldToFilter('approved', array('eq' => 0))
-            ->addFieldToFilter('rejected', array('eq' => 0))
-            ->addFieldToFilter('creation_date',
-            array('from' => $from, 'to' => $to));
+        $allProofsAwaitingApproval = $resource->getConnection('core_read')->fetchAll($query);
 
         foreach ($allProofsAwaitingApproval as $proof) {
 
-            $order   = Mage::getModel('sales/order')->load($proof->getOrderId());
+            $order   = Mage::getModel('sales/order')->load($proof['order_id']);
             $storeId = $order->getStoreId();
 
             if ($sendToAdmin) {
