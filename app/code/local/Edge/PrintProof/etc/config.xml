@@ -179,7 +179,7 @@
     <crontab>
         <jobs>
             <awaiting_approval_send>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <schedule><cron_expr>0 */6 * * *</cron_expr></schedule>
                 <run><model>printproof/observer::sendAwaitingProofApproval</model></run>
             </awaiting_approval_send>
         </jobs>
