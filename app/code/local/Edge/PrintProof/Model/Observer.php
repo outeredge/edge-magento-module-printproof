@@ -103,19 +103,21 @@ class Edge_PrintProof_Model_Observer
         if ($hours == 0) {
             return $this;
         }
+        
+        $time               = Mage::getModel('core/date')->timestamp(time());
+        $lastProofTimestamp = $time - (60 * 60 * $hours);
+        $lastProofTime      = date('Y-m-d H:i:s', $lastProofTimestamp);
 
-        //Get all the order waiting proof approval for more than $hours
-        $resource = Mage::getSingleton('core/resource');
-        $printproofTableName = $resource->getTableName('printproof/proof');
-        $query = "SELECT * FROM $printproofTableName "
-            . "WHERE (approved = 0) AND (rejected = 0) "
-            . "AND creation_date < DATE_SUB(NOW(), INTERVAL $hours HOUR)";
-
-        $allProofsAwaitingApproval = $resource->getConnection('core_read')->fetchAll($query);
+        //Get all the order waiting proof approval
+        $allProofsAwaitingApproval = Mage::getModel('printproof/proof')
+            ->getCollection()
+            ->addFieldToFilter('approved', array('eq' => 0))
+            ->addFieldToFilter('rejected', array('eq' => 0))
+            ->addFieldToFilter('creation_date', array('to' => $lastProofTime))
+            ->addFieldToFilter('followup_date', array(array('to' => $lastProofTime), array('null' => true)));
 
         foreach ($allProofsAwaitingApproval as $proof) {
-
-            $order   = Mage::getModel('sales/order')->load($proof['order_id']);
+            $order   = Mage::getModel('sales/order')->load($proof->getOrderId());
             $storeId = $order->getStoreId();
 
             if ($sendToAdmin) {
@@ -141,6 +143,13 @@ class Edge_PrintProof_Model_Observer
                         'proof' => $proof
                     )
             );
+            
+            $proof->setFollowupDate(Mage::getModel('core/date')->timestamp(time()));
+            $proof->save();
+            
+            if(Mage::getStoreConfig('printproof/general/enable_log')) {
+                Mage::log('Proof reminder sent for proof #' . $proof->getId(), null, 'printproof.log');
+            }
         }
 
         return $this;
