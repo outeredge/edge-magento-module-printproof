@@ -122,14 +122,23 @@
                                 <show_in_store>1</show_in_store>
                             </printproof_awaiting_proof_follow_up_email>
                             <printproof_awaiting_proof_follow_up_email_hours translate="label">
-                                <label>Followup delay</label>
-                                <comment>Number of hours after proof to send followup email</comment>
+                                <label>Followup Delay</label>
+                                <comment><![CDATA[Number of hours after proof to send followup email <br/>(0 = Followups disabled)]]></comment>
                                 <frontend_type>text</frontend_type>
                                 <sort_order>70</sort_order>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
                             </printproof_awaiting_proof_follow_up_email_hours>
+                            <printproof_awaiting_proof_follow_up_email_interval_hours translate="label">
+                                <label>Followup Interval</label>
+                                <comment><![CDATA[Number of hours after between followup emails <br/>(0 = No further followups)]]></comment>
+                                <frontend_type>text</frontend_type>
+                                <sort_order>80</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </printproof_awaiting_proof_follow_up_email_interval_hours>
                     </fields>
                 </email>
             </groups>

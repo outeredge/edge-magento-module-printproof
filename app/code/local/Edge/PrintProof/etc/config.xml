@@ -130,6 +130,12 @@
         </events>
     </global>
     <default>
+        <printproof>
+            <email>
+                <printproof_awaiting_proof_follow_up_email_hours>0</printproof_awaiting_proof_follow_up_email_hours>
+                <printproof_awaiting_proof_follow_up_email_interval_hours>0</printproof_awaiting_proof_follow_up_email_interval_hours>
+            </email>
+        </printproof>
         <system>
             <media_storage_configuration>
                 <allowed_resources>
@@ -179,7 +185,7 @@
     <crontab>
         <jobs>
             <awaiting_approval_send>
-                <schedule><cron_expr>0 */6 * * *</cron_expr></schedule>
+                <schedule><cron_expr>0 */1 * * *</cron_expr></schedule>
                 <run><model>printproof/observer::sendAwaitingProofApproval</model></run>
             </awaiting_approval_send>
         </jobs>

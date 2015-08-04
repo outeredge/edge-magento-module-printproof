@@ -99,13 +99,13 @@ class Edge_PrintProof_Model_Observer
         $sendToAdmin  = 0;
         $templateCode = 'printproof_awaiting_proof_follow_up_email';
 
-        $hours = Mage::getStoreConfig('printproof/email/printproof_awaiting_proof_follow_up_email_hours');
-        if ($hours == 0) {
+        $delayHours    = Mage::getStoreConfig('printproof/email/printproof_awaiting_proof_follow_up_email_hours');
+        if ($delayHours == 0) {
             return $this;
         }
         
-        $time               = Mage::getModel('core/date')->timestamp(time());
-        $lastProofTimestamp = $time - (60 * 60 * $hours);
+        $currentTimestamp   = Mage::getModel('core/date')->timestamp(time());
+        $lastProofTimestamp = $currentTimestamp - (60 * 60 * $delayHours);
         $lastProofTime      = date('Y-m-d H:i:s', $lastProofTimestamp);
 
         //Get all the order waiting proof approval
@@ -113,10 +113,28 @@ class Edge_PrintProof_Model_Observer
             ->getCollection()
             ->addFieldToFilter('approved', array('eq' => 0))
             ->addFieldToFilter('rejected', array('eq' => 0))
-            ->addFieldToFilter('creation_date', array('to' => $lastProofTime))
-            ->addFieldToFilter('followup_date', array(array('to' => $lastProofTime), array('null' => true)));
+            ->addFieldToFilter('creation_date', array('to' => $lastProofTime));
+        
+        //If recuring followups is disabled, only get items which haven't yet been followed up
+        $intervalHours = Mage::getStoreConfig('printproof/email/printproof_awaiting_proof_follow_up_email_interval_hours');
+        
+        if($intervalHours == 0) {
+            $allProofsAwaitingApproval->addFieldToFilter('followup_date', array('null' => true));
+        }
 
         foreach ($allProofsAwaitingApproval as $proof) {
+            
+            //if reminder already sent, check when last followed up
+            if($proof->getFollowupDate()) {
+                $followupDateTimestamp = Mage::getModel('core/date')->timestamp($proof->getFollowupDate());
+                $nextFollowupTimestamp = $followupDateTimestamp + (60 * 60 * $intervalHours);
+                
+                // If next followup not due, skip this proof
+                if($currentTimestamp < $nextFollowupTimestamp) {
+                    continue;
+                }
+            }
+            
             $order   = Mage::getModel('sales/order')->load($proof->getOrderId());
             $storeId = $order->getStoreId();
 
