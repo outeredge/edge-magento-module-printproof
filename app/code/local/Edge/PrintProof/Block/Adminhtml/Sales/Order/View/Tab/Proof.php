@@ -71,7 +71,7 @@ class Edge_PrintProof_Block_Adminhtml_Sales_Order_View_Tab_Proof
 
     protected function _prepareLayout()
     {
-        $this->getLayout()->getBlock('head')->addJs('css/printproof.js');
+        $this->getLayout()->getBlock('head')->addJs('js/printproof.js');
         return parent::_prepareLayout();
     }
 }
