@@ -9,18 +9,18 @@ class Edge_PrintProof_Block_Adminhtml_Sales_Order_View_Tab_Proof
         parent::_construct();
         $this->setTemplate('printproof/proof.phtml');
     }
-    
+
     public function getOrder()
     {
         $order = Mage::registry('current_order');
         if($order instanceof Mage_Sales_Model_Order){
             return $order;
         }
-        
+
         $order = Mage::getModel('sales/order')->load(Mage::app()->getRequest()->getParam('order_id', false));
         return $order;
     }
-    
+
     public function getOrderId()
     {
         $orderId = false;
@@ -43,7 +43,7 @@ class Edge_PrintProof_Block_Adminhtml_Sales_Order_View_Tab_Proof
     {
         return Mage::helper('printproof')->__('Printing Proofs');
     }
-    
+
     public function getTabClass()
     {
         return 'ajax only';
@@ -67,5 +67,11 @@ class Edge_PrintProof_Block_Adminhtml_Sales_Order_View_Tab_Proof
     public function isHidden()
     {
         return false;
+    }
+
+    protected function _prepareLayout()
+    {
+        $this->getLayout()->getBlock('head')->addJs('css/printproof.js');
+        return parent::_prepareLayout();
     }
 }
