@@ -6,10 +6,6 @@
                 <type>skin_css</type>
                 <name>css/printproof.css</name>
             </action>
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/printproof.js</name>
-            </action>
         </reference>
         <reference name="sales_order_tabs">
             <action method="addTab">
