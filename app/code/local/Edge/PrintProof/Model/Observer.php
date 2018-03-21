@@ -175,13 +175,17 @@ class Edge_PrintProof_Model_Observer
 
     public function setOrderCommentHistory(Varien_Event_Observer $observer)
     {
-        $proof = $observer->getEvent()->getProof();
-        $order = Mage::getModel('sales/order')->load($proof->getOrderId());
+        try {
+            $proof = $observer->getEvent()->getProof();
+            $order = Mage::getModel('sales/order')->load($proof->getOrderId());
 
-        $comments   = unserialize($proof->getComments());
-        $commentMsg = end($comments);
+            $comments   = unserialize($proof->getComments());
+            $commentMsg = end($comments);
 
-        $order->addStatusHistoryComment('Item: '.$proof->getItemId().' | Comment: '.$commentMsg['comment']);
-        $order->save();
+            $order->addStatusHistoryComment('Item: '.$proof->getItemId().' | Comment: '.$commentMsg['comment']);
+            $order->save();
+        } catch(Exception $e) {
+            Mage::log('Set proof_aprroved on status history table failed:' . $e->getMessage(), null, 'printproof.log');
+        }
     }
 }
